@@ -1,0 +1,59 @@
+framework:
+    workflows:
+        saison:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                - App\Entity\Saison
+            initial_marking: prevue
+            places:
+                - prevue
+                - en_cours
+                - terminee
+            transitions:
+                lancer:
+                    from: prevue
+                    to: en_cours
+                cloturer:
+                    from: en_cours
+                    to: terminee
+        manche:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                - App\Entity\Manche
+            initial_marking: prevue
+            places:
+                - prevue
+                - en_cours
+                - terminee
+            transitions:
+                lancer:
+                    from: prevue
+                    to: en_cours
+                cloturer:
+                    from: en_cours
+                    to: terminee        
+        partie:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                - App\Entity\Partie
+            initial_marking: prevue
+            places:
+                - prevue
+                - en_cours
+                - terminee
+            transitions:
+                lancer:
+                    from: prevue
+                    to: en_cours
+                cloturer:
+                    from: en_cours
+                    to: terminee

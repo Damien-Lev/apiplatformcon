@@ -1,0 +1,18 @@
+api_platform:
+    defaults:
+        pagination_enabled: false
+        pagination_client_enabled: true
+        pagination_client_items_per_page: true
+        pagination_items_per_page: 30
+        pagination_maximum_items_per_page: 100
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Entity'
+            - '%kernel.project_dir%/src/ApiResource'
+    formats:
+        jsonld: [ 'application/json-ld' ]
+        html: [ 'text/html' ]
+        json: [ 'application/json' ]
+        form: [ 'multipart/form-data' ]
+    patch_formats:
+        json: [ 'application/merge-patch+json' ]
