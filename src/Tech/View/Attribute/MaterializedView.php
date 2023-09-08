@@ -11,30 +11,7 @@ use Exception;
 #[Attribute(Attribute::TARGET_CLASS)]
 class MaterializedView
 {
-    private ?MaterializedViewDescriptionInterface $descriptionClass = null;
-    /**
-     * @throws Exception
-     */
-    public function __construct(
-        public readonly string $descriptionClassName
-    ) {
-        $class = new $this->descriptionClassName();
-        if (!($class instanceof MaterializedViewDescriptionInterface)) {
-            throw new Exception(sprintf('Class must % implement %', $this->descriptionClassName, MaterializedViewDescriptionInterface::class));
-        }
-        $this->setDescriptionClass($class);
-    }
-
-    public function getDescriptionClass(): ?MaterializedViewDescriptionInterface
+    public function __construct(protected string $query, protected string $viewTableName, protected string $uniqueIndexField)
     {
-        return $this->descriptionClass;
     }
-
-    public function setDescriptionClass(?MaterializedViewDescriptionInterface $descriptionClass): MaterializedView
-    {
-        $this->descriptionClass = $descriptionClass;
-        return $this;
-    }
-
-
 }

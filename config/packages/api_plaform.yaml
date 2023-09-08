@@ -1,10 +1,10 @@
 api_platform:
     defaults:
-        pagination_enabled: false
+        pagination_enabled: true
         pagination_client_enabled: true
         pagination_client_items_per_page: true
-        pagination_items_per_page: 30
-        pagination_maximum_items_per_page: 100
+        pagination_items_per_page: 200
+        pagination_maximum_items_per_page: 200
     mapping:
         paths:
             - '%kernel.project_dir%/src/Entity'

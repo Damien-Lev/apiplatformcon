@@ -2,20 +2,18 @@
 
 namespace App\Command;
 
-use App\Entity\Equipe;
-use App\Entity\Joueur;
-use App\Entity\Lobby;
-use App\Entity\Manche;
-use App\Entity\Partie;
-use App\Entity\ResultatPartie;
-use App\Entity\Saison;
+use App\Factory\CategorieFactory;
+use App\Factory\ConcessionFactory;
+use App\Factory\MarqueFactory;
+use App\Factory\ModeleFactory;
+use App\Factory\OptionFactory;
+use App\Factory\RegionFactory;
+use App\Factory\VehiculeFactory;
 use App\Tech\Doctrine\Purger\DatabasePurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -25,7 +23,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class FixturesCommand extends Command
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly DatabasePurger $purger)
+    public function __construct(private readonly DatabasePurger $purger)
     {
         parent::__construct();
     }
@@ -33,102 +31,76 @@ class FixturesCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->purger->purge();
-        $io = new SymfonyStyle($input, $output);
 
-        foreach (range(1, 128) as $index) {
-            if (($index-1) % 8 === 0) {
-                $equipe = new Equipe();
-                $equipe->setNom('Equipe '.round($index / 8 +1));
-                $this->entityManager->persist($equipe);
+        CategorieFactory::createOne(['code' => 'VN']);
+        CategorieFactory::createOne(['code' => 'VO']);
+        CategorieFactory::createOne(['code' => 'VE']);
+        CategorieFactory::createOne(['code' => 'VD']);
+        RegionFactory::createOne(['libelle' => 'Nord']);
+        RegionFactory::createOne(['libelle' => 'Sud']);
+        RegionFactory::createOne(['libelle' => 'Ouest']);
+        RegionFactory::createOne(['libelle' => 'Est']);
+        MarqueFactory::createOne(['code' => 'PEU','libelle' => 'Peugeot']);
+        MarqueFactory::createOne(['code' => 'REN','libelle' => 'Renault']);
+        MarqueFactory::createOne(['code' => 'DS','libelle' => 'DS']);
+        MarqueFactory::createOne(['code' => 'CIT','libelle' => 'Citroën']);
+        MarqueFactory::createOne(['code' => 'DAC','libelle' => 'Dacia']);
+        $modelesParMarque = [
+            'PEU' => [
+                '208',
+                '2008',
+                '308',
+                '408',
+                '508',
+                '5008',
+                'Rifer',
+                'Expert',
+                'Traveller'
+            ],
+                    'REN' => [
+                'Clio',
+                'Twingo',
+                'Zoe',
+                'Captur',
+                'Megane',
+                'Arkana',
+                'Kangoo',
+                'Trafic',
+                'Twizy'
+            ],
+                    'DS' => [
+                'DS3',
+                'DS4',
+                'DS7',
+                'DS9'
+            ],
+                    'CIT' => [
+                'C3',
+                'Oli',
+                'Ami',
+                'C4',
+                'C5',
+                'Berlingo',
+                'SpaceTourer'
+            ],
+                    'DAC' => [
+                'Sping',
+                'Sandero',
+                'Duster',
+                'Jogger'
+                    ]
+        ];
+        foreach ($modelesParMarque as $marque => $modeles) {
+            $marque = MarqueFactory::repository()->createQueryBuilder('m')->where('m.code = :code')->setParameter('code',$marque)->getQuery()->getOneOrNullResult();
+            foreach ($modeles as $modele) {
+                ModeleFactory::createOne(['marque' => $marque, 'libelle' => $modele]);
             }
-            $joueur = new Joueur();
-            $joueur->setPseudo('joueur '.$index)->setEquipe($equipe);
-            $this->entityManager->persist($joueur);
         }
-        $this->entityManager->flush();
-        $this->entityManager->clear();
-
-        $dateSaison = new \DateTime('2010-01-01');
-        for ($a = 1; $a <17; ++$a ) {
-            $saison1 = new Saison();
-            $saison1
-                ->setState('terminee')
-                ->setLibelle('Saison '.$a)
-                ->setDateDebut(clone $dateSaison);
-            $this->entityManager->persist($saison1);
-            $this->handleSaisonTerminee($saison1, 12, 8);
-            $dateSaison->modify('+3 months');
-        }
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+        ConcessionFactory::createMany(200);
+        OptionFactory::createMany(200, static function () {
+            return ['marque' => MarqueFactory::random()];
+        });
 
         return Command::SUCCESS;
-    }
-
-    private function handleSaisonTerminee(Saison $saison, int $nbManches, int $nbParties): void {
-
-        $joueurs = $this->entityManager->getRepository(Joueur::class)->findBy([], ['id' => 'ASC']);
-        $nbLobbys = count($joueurs) / 8;
-        $pointsLobbys = range(8,1, -1);
-        $placesAttribuees = [];
-        for ($a = 1; $a <= $nbLobbys; ++$a) {
-            for ($b = 1; $b < 9;++$b) {
-                $placesAttribuees[] = 10*$a + $b;
-            }
-        }
-        foreach ($joueurs as $joueur) {
-            $joueur->addSaison($saison);
-        }
-        /** @var \DateTime $dateSaison */
-        $dateSaison = clone $saison->getDateDebut();
-        for($i = 1; $i <= $nbManches; ++$i) {
-            $manche = new Manche();
-            $manche
-                ->setSaison($saison)
-                ->setState('terminee')
-                ->setDate(clone $dateSaison);
-            $saison->addManch($manche);
-            $dateSaison->modify('+1 week');
-            $this->entityManager->persist($manche);
-            for ($j = 1; $j <= $nbParties; ++$j) {
-                $partie = new Partie();
-                $partie
-                    ->setOrdre($j)
-                    ->setState('terminee')
-                    ->setManche($manche);
-                $manche->addParty($partie);
-                $this->entityManager->persist($partie);
-                for ($k = 1; $k <= $nbLobbys; ++$k) {
-                    $lobby = new Lobby();
-                    $lobby
-                        ->setPartie($partie)
-                        ->setNumero($k);
-                    $partie->addLobby($lobby);
-                    $this->entityManager->persist($lobby);
-                }
-                $copieJoueurs = $joueurs;
-                $placesAAttribuer = $placesAttribuees;
-                while (!empty($copieJoueurs)) {
-                    $indexJoueur = array_rand($copieJoueurs);
-                    $sortant = $copieJoueurs[$indexJoueur];
-                    $randomIndexJoueur = array_rand($placesAAttribuer);
-                    $indexLobbyJoueur = ((int)floor($placesAAttribuer[$randomIndexJoueur] / 10)) - 1;
-                    $lobby = $partie->getLobbys()->toArray()[$indexLobbyJoueur];
-                    $place = $placesAAttribuer[$randomIndexJoueur] % 10;
-                    $points = $pointsLobbys[$place - 1];
-                    $resultatPartie = new ResultatPartie();
-                    $resultatPartie
-                        ->setPlace($place)
-                        ->setPoints($points)
-                        ->setJoueur($sortant)
-                        ->setLobby($lobby);
-                    $sortant->addResultat($resultatPartie);
-                    $lobby->addResultat($resultatPartie);
-                    $this->entityManager->persist($resultatPartie);
-                    array_splice($copieJoueurs, $indexJoueur, 1);
-                    array_splice($placesAAttribuer, $randomIndexJoueur, 1);
-                }
-            }
-        }
     }
 }

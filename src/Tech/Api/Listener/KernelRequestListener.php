@@ -3,27 +3,30 @@
 namespace App\Tech\Api\Listener;
 
 use ApiPlatform\Metadata\Operation;
-use App\Tech\View\Messenger\UpdateViewEvent;
 use App\Tech\View\ViewPoolHandlerInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Messenger\MessageBusInterface;
 
-#[AsEventListener(event: KernelEvents::RESPONSE, method: 'onKernelView')]
-class KernelResponseListener
+#[AsEventListener(event: KernelEvents::REQUEST, method: 'onKernelRequest')]
+class KernelRequestListener
 {
+    public const VIEW_UPDATE_LIST = 'view_update_list';
+
     public function __construct(private readonly ViewPoolHandlerInterface $viewPoolHandler)
     {
     }
 
-    public function onKernelView(ResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
         $operation = $request->attributes->get('_api_operation');
 
         if ($operation instanceof Operation) {
-            $this->viewPoolHandler->pull();
+            $extraProperties = $operation->getExtraProperties();
+            if (isset($extraProperties[self::VIEW_UPDATE_LIST])) {
+                $this->viewPoolHandler->add($extraProperties[self::VIEW_UPDATE_LIST]);
+            }
         }
     }
 }

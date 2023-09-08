@@ -30,12 +30,54 @@ class CreateMaterializedViewsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $connection = $this->entityManager->getConnection();
-        $finder = new Finder();
         $existantViews = array_merge(...$connection->executeQuery('SELECT matviewname FROM pg_matviews;')->fetchAllNumeric());
+        $projectViews = [];
+        $viewsDescriptions = [];
         foreach ($this->materializedViews as $materializedView) {
-
+            $reflexionClass = new \ReflectionClass($materializedView::class);
+            $attributes = $reflexionClass->getAttributes();
+            foreach ($attributes as $attribute) {
+                if ($attribute->getName() === 'App\Tech\View\Attribute\MaterializedView') {
+                    $tableName = $attribute->getArguments()['viewTableName'];
+                    $projectViews[] = $tableName;
+                    $viewsDescriptions[$tableName] = [
+                        'query' => $attribute->getArguments()['query'],
+                        'uniqueIndexField' => $attribute->getArguments()['uniqueIndexField'],
+                    ];
+                }
+            }
         }
+        $toDeleteViews = array_diff($existantViews, $projectViews);
+        $toCreateViews = array_diff($projectViews, $existantViews);
 
+        foreach ($toDeleteViews as $toDeleteView) {
+            $connection->executeQuery(sprintf('DROP MATERIALIZED VIEW IF EXISTS %s', $toDeleteView));
+            $io->info('DELETED MATERIALIZED VIEW '.$toDeleteView);
+        }
+        foreach ($toCreateViews as $toCreateView) {
+            $createViewQuery = sprintf(
+                'CREATE MATERIALIZED VIEW IF NOT EXISTS %s as %s;',
+                $toCreateView,
+                $viewsDescriptions[$toCreateView]['query']
+            );
+            $createIndexQuery = sprintf(
+                ' CREATE UNIQUE INDEX %s ON %s (%s);',
+                'uniq_'.$toCreateView,
+                $toCreateView,
+                $viewsDescriptions[$toCreateView]['uniqueIndexField']
+            );
+            $connection->executeQuery($createViewQuery);
+            $connection->executeQuery($createIndexQuery);
+
+            $io->info('CREATED MATERIALIZED VIEW '.$toCreateView);
+        }
+        foreach ($projectViews as $view) {
+            $refreshDataQuery = sprintf(
+                'REFRESH MATERIALIZED VIEW CONCURRENTLY %s WITH DATA;',
+                $view
+            );
+            $connection->executeQuery($refreshDataQuery);
+        }
 
         $io->success('All views are created.');
 

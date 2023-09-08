@@ -5,34 +5,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ea60dae-b640-4da6-a023-859786807208" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/config/packages/api_plaform.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ApiResource/View/ClassementSaison.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/Fixtures2Command.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/Fixtures3Command.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MaterializedView/ClassementSaisonDescription.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Processor/ResultatRaison/SaisirResultatProcessor.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Provider/ClassementSaison/ClassementSaisonEquipeProvider.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Provider/ClassementSaison/ClassementSaisonEquipeWithoutViewProvider.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ClassementSaisonRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tech/Api/Listener/KernelResponseListener.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tech/Doctrine/Purger/DatabasePurger.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tech/Doctrine/Purger/DatabasePurgerInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tech/View/Attribute/MaterializedView.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tech/View/MaterializedViewDescriptionInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tech/View/MaterializedViewInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tech/View/Messenger/UpdateViewEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tech/View/Messenger/UpdateViewHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ApiResource/View/CompteursDashboard.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ApiResource/View/TableauVehicules.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Command/AddVehiculesCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MaterializedView/TableauVehiculesDescription.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Processor/PasserEnStockProcessor.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Tech/Api/Listener/KernelRequestListener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Tech/View/ViewPoolHandler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Tech/View/ViewPoolHandlerInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeception.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeception.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0e2a066f-40d3-4fa6-861a-e3f2b52b6dcc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0e2a066f-40d3-4fa6-861a-e3f2b52b6dcc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0e2a066f-40d3-4fa6-861a-e3f2b52b6dcc/storage_v2/_src_/database/apiplatformcon.1XHYYA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0e2a066f-40d3-4fa6-861a-e3f2b52b6dcc/storage_v2/_src_/database/apiplatformcon.1XHYYA/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0e2a066f-40d3-4fa6-861a-e3f2b52b6dcc/storage_v2/_src_/database/apiplatformcon.1XHYYA/schema/public.abK9xQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0e2a066f-40d3-4fa6-861a-e3f2b52b6dcc/storage_v2/_src_/database/apiplatformcon.1XHYYA/schema/public.abK9xQ.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/php/conf.d/app.ini" beforeDir="false" afterPath="$PROJECT_DIR$/docker/php/conf.d/app.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/php/docker-entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/php/docker-entrypoint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/api_plaform.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/api_plaform.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/workflow.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/workflow.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230823122532.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230824071315.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230824080959.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ApiResource/View/ClassementSaison.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/CreateMaterializedViewsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/CreateMaterializedViewsCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/Fixtures2Command.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/Fixtures3Command.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/FixturesCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/FixturesCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Equipe.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Joueur.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Lobby.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Manche.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Partie.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/ResultatPartie.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Saison.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MaterializedView/ClassementSaisonDescription.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/MaterializedView/CompteursDescription.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Processor/ResultatRaison/SaisirResultatProcessor.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Provider/ClassementSaison/ClassementSaisonEquipeProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Provider/ClassementSaison/ClassementSaisonEquipeWithoutViewProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ClassementSaisonRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/EquipeRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/JoueurRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/LobbyRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/MancheRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PartieRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ResultatPartieRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/SaisonRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tech/Api/Listener/KernelResponseListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tech/Api/Listener/KernelResponseListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tech/View/Attribute/MaterializedView.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tech/View/Attribute/MaterializedView.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tech/View/MaterializedViewDescriptionInterface.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -139,6 +165,10 @@
       <path value="$PROJECT_DIR$/vendor/symfony/web-profiler-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/vendor/zenstruck/foundry" />
+      <path value="$PROJECT_DIR$/vendor/zenstruck/assert" />
+      <path value="$PROJECT_DIR$/vendor/zenstruck/callback" />
+      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -166,6 +196,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.add.doc.comment.for.fields.panel.add.php.doc&quot;: &quot;false&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -188,6 +219,9 @@
       <workItem from="1692728429274" duration="36551000" />
       <workItem from="1693394650682" duration="2043000" />
       <workItem from="1693465503837" duration="13028000" />
+      <workItem from="1693829912806" duration="9857000" />
+      <workItem from="1693982606441" duration="23360000" />
+      <workItem from="1694155286792" duration="10320000" />
     </task>
     <servers />
   </component>
