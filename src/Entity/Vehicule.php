@@ -6,7 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
-use App\MaterializedView\CompteursDescription;
+use App\MaterializedView\CompteursDashboardDescription;
 use App\MaterializedView\TableauVehiculesDescription;
 use App\Processor\PasserEnStockProcessor;
 use App\Repository\VehiculeRepository;
@@ -26,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             processor: PasserEnStockProcessor::class,
             extraProperties: [
                 KernelRequestListener::VIEW_UPDATE_LIST => [
-                    CompteursDescription::TABLE_NAME,
+                    CompteursDashboardDescription::TABLE_NAME,
                     TableauVehiculesDescription::TABLE_NAME
                 ]
             ]

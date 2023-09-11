@@ -4,19 +4,28 @@ namespace App\ApiResource\View;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
-use App\MaterializedView\CompteursDescription;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\MaterializedView\CompteursDashboardDescription;
 use App\Tech\View\Attribute\MaterializedView;
 use App\Tech\View\MaterializedViewInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(readOnly: true)]
-#[ORM\Table(name: CompteursDescription::TABLE_NAME)]
+#[ORM\Table(name: CompteursDashboardDescription::TABLE_NAME)]
 #[MaterializedView(
-    query: CompteursDescription::QUERY,
-    viewTableName: CompteursDescription::TABLE_NAME,
-    uniqueIndexField: CompteursDescription::UNIQUE_INDEX_FIELD
+    query: CompteursDashboardDescription::QUERY,
+    viewTableName: CompteursDashboardDescription::TABLE_NAME,
+    uniqueIndexField: CompteursDashboardDescription::UNIQUE_INDEX_FIELD
 )]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(
+            mercure: true
+        )
+    ],
+)]
 class CompteursDashboard implements MaterializedViewInterface
 {
     #[ORM\Id]

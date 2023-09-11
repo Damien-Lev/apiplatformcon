@@ -47,8 +47,8 @@ final class OptionFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'code' => self::faker()->text(10),
-            'libelle' => self::faker()->text(30),
+            'code' => self::faker()->unique()->regexify('[A-Z]{2}\d{2}'),
+            'libelle' => self::faker()->text(20),
             'marque' => MarqueFactory::new(),
         ];
     }
